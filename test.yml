@@ -1,0 +1,29 @@
+---
+- name: cowin playbook
+  hosts: localhost
+  tasks:
+  - name: Gettting state list
+    uri: 
+      url: "https://cdn-api.co-vin.in/api/v2/admin/location/states"
+      validate_certs: no
+      method: "GET" 
+      # user: "{{ user }}"
+      # password: "{{ password }}"
+      force_basic_auth: yes
+    register: state_details
+
+  - debug:
+      msg: "{{ state_details }}"
+
+  - name: "Getting details of appintment"
+    uri:
+      url: "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=560100&date=7-02-2022"
+      validate_certs: no
+      method: "GET" 
+      # user: "{{ user }}"
+      # password: "{{ password }}"
+      force_basic_auth: yes
+    register: appointment_details
+  - debug:
+      msg: "{{ appointment_details }}"
+
